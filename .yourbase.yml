@@ -1,0 +1,22 @@
+build_targets:
+- commands:
+  - apt update
+  - apt install -y --no-install-recommends clang cmake libconfig-dev libgtest-dev ninja-build pkg-config zip grep file ca-certificates autotools-dev autoconf automake git bc wget rsync cmake make pkg-config libtool ssh gzip tar coreutils
+  - mkdir -p ~/work/deploy
+  - mkdir -p ~/.android/
+  - touch ~/.android/debug.keystore
+  - chmod +x yourbased.sh
+  - sh ./yourbased.sh
+  - cd build_dir
+  - bash ../circle_scripts/trifa.sh '../'
+  container:
+    image: yourbase/yb_ubuntu:16.04
+  name: default
+
+ci:
+  builds:
+  - build_target: default
+    name: default
+dependencies:
+  build:
+  - java:8.252.09
